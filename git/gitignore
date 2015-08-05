@@ -1,0 +1,23 @@
+# editor
+*.swn
+*.swo
+*.swp
+
+# rails
+log/*.log
+tmp/**/*
+config/database.yml
+config/secrets.yml
+db/*.sqlite3
+.env
+
+# coverage
+coverage/
+test/reports/
+
+# useful tidbits
+.DS_Store
+doc/api
+doc/app
+
+

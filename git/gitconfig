@@ -1,0 +1,37 @@
+[user]
+  name =
+  email =
+[github]
+  user =
+[core]
+  editor = vim
+  excludesfile = ~/.gitignore
+[merge]
+  tool = vimdiff
+[color]
+  ui = true
+[alias]
+  g = git
+  gst = 'git status'
+  st = status
+  co = checkout
+  ci = commit
+  cp = cherry-pick
+  gm = 'git merge --no-ff'
+  gf = 'git fetch -p'
+  up = "!git remote update -p: git merge --ff-only @{u}"
+  rob = 'push origin --delete'
+[pack]
+  threads = 0
+[apply]
+  whitespace = nowarn
+[push]
+  default = tracking
+[giggle]
+  main-window-maximized = true
+  main-window-geometry = 0x0+0+0
+  history-view-vpane-position = 550
+  file-view-vpane-position = 118
+  main-window-view = HistoryView
+[pull]
+  ff = only
