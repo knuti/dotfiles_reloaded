@@ -1,0 +1,109 @@
+# Path to installation
+export ZSH=$HOME/.oh-my-zsh
+
+# Name of theme to load, "random" loads a new theme on start.
+ZSH_THEME="agnoster"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# time stamp format shown in history
+HIST_STAMPS="dd.mm.yyyy"
+
+# plugins can be found in ~/.oh-my-zsh/plugins/*
+plugins=(git ruby rails vi-mode ssh-agent) #tmux tmuxinator
+
+###############################################################################
+# User configuration
+###############################################################################
+
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export EDITOR="vim"
+source $ZSH/oh-my-zsh.sh
+
+export MYSQL_PS1="\u@\h [\d]> "
+
+
+########################################
+### Aliases
+########################################
+
+alias ll='ls -lah'
+
+alias start_pg="launchctl load -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
+alias stop_pg="launchctl unload -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
+
+alias pg='psql -h localhost -p 5432 -U `whoami` postgres'
+
+# Additional Git Alias
+alias grco='git rebase origin/$(current_branch)'
+alias delete_tag='echo "git push origin :refs/tags/<tag_name>"'
+
+# starting macvim with nerdtree open
+alias nvim='mvim -c NERDTree -c "wincmd l"'
+
+# aliasing rails
+alias be='bundle exec'
+alias brails='bin/rails'
+alias brake='bin/rake'
+
+
+########################################
+### Bindings
+########################################
+
+# for using history search
+bindkey '^R' history-incremental-search-backward
+# bindkey '^S' history-incremental-search-forward
+# bindkey '^P' history-search-backward
+# bindkey '^N' history-search-forward
+
+# fast moving the cursor through commands
+# found on http://www.cs.elte.hu/zsh-manual/zsh_14.html
+bindkey '^B' backward-word
+bindkey '^F' forward-word
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
+
+########################################
+### Methods
+########################################
+
+# TODO: modify
+create_tag() {
+  if [ ${PWD##*/} = "autohaus24" ]; then
+    APP="ah24"
+  else
+    APP=${PWD##*/}
+  fi
+
+  INDEX=1
+  TAG=$APP-$(date +%Y%m%d)
+
+  git fetch --tags
+
+  while git rev-parse $TAG-$INDEX >/dev/null 2>&1; do
+    INDEX=$[$INDEX +1]
+  done
+
+  echo $TAG-$INDEX | tr -d '\n' | pbcopy
+  git tag $TAG-$INDEX
+  git push origin $TAG-$INDEX
+}
+
+
+########################################
+### PATH
+########################################
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+source ~/.zlogin
