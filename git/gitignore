@@ -2,6 +2,7 @@
 *.swn
 *.swo
 *.swp
+*/**/.netrwhist
 
 # rails
 log/*.log
@@ -19,5 +20,5 @@ test/reports/
 .DS_Store
 doc/api
 doc/app
-
-
+TODO.*
+info.*

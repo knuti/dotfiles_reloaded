@@ -11,14 +11,24 @@ Include through Fontbook.app on Mac OS. After that, open up iterm2 > Preferences
 
 -----------------
 
+### git/
+
+* gitconfig
+* gitignore
+
+Link both files to $HOME (`ln -s path/to/project/git/<file> .<file>` and change
+at least "username" and "email" inside gitconfig file.
+
+-----------------
+
 ### terminal/
 
-* colors/
-  * Solarized Dark.itermcolors
+* color_schemes/
 
 In iterm2 app, open Preferences > Colors > and select Import from the Dropdown.
-In the same Dropdown, select the imported color. I do not like the set, but it
-gives a nice example. Maybe more color sets should follow.
+In the same Dropdown, select the colorscheme to be imported. Inside the schemes
+folder are a lot of themes to choose from. The folder itself is a submodule.
+Currently in use: japanesque
 
 -----------------
 
@@ -39,7 +49,3 @@ Plugins are managed through pathogen. In vimrc you will find a call to it,
 loading all plugins inside this folder. To be loaded, plugins will need to be
 placed as git submodules: `git submodule add <link_to_repo:most_often_git>`.
 To be up to date use `git submodule update`.
-
------------------
-
-### git/
