@@ -1,3 +1,6 @@
 [submodule "terminal/color_schemes"]
 	path = terminal/color_schemes
 	url = git@github.com:mbadolato/iTerm2-Color-Schemes.git
+[submodule "vim/bundle/vim-bundler"]
+	path = vim/bundle/vim-bundler
+	url = git://github.com/tpope/vim-bundler.git
