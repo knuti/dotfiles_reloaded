@@ -142,6 +142,10 @@ set nobackup
 set nowb
 set noswapfile
 
+" Easy open files using CtrlP
+map <leader>o :CtrlP<CR>
+map <leader>b :CtrlPBuffer<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
