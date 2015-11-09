@@ -24,7 +24,7 @@ plugins=(git ruby rails vi-mode ssh-agent) #tmux tmuxinator
 # User configuration
 ###############################################################################
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export EDITOR="vim"
 source $ZSH/oh-my-zsh.sh
 
