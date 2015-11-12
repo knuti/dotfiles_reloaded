@@ -46,3 +46,6 @@
 [submodule "vim/bundle/one-dark.vim"]
 	path = vim/bundle/one-dark.vim
 	url = git@github.com:geoffharcourt/one-dark.vim.git
+[submodule "vim/bundle/ag.vim"]
+	path = vim/bundle/ag.vim
+	url = git@github.com:rking/ag.vim.git
