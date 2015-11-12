@@ -43,3 +43,6 @@
 [submodule "vim/bundle/vim-jsx"]
 	path = vim/bundle/vim-jsx
 	url = git@github.com:mxw/vim-jsx.git
+[submodule "vim/bundle/one-dark.vim"]
+	path = vim/bundle/one-dark.vim
+	url = git@github.com:geoffharcourt/one-dark.vim.git
