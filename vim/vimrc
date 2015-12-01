@@ -110,7 +110,7 @@ set tm=500
 syntax on
 syntax enable
 
-colorscheme jellybeans
+colorscheme onedark
 
 set background=dark
 
@@ -131,6 +131,8 @@ set ffs=unix,dos,mac
 au BufNewFile,BufRead *.j setf objj
 
 highlight Pmenu ctermbg=5 guibg=#004e9c
+
+set guifont=Monaco:h12
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
