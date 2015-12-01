@@ -51,6 +51,7 @@ alias stop_memcached="launchctl unload /usr/local/opt/memcached/homebrew.mxcl.me
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
 alias delete_tag='echo "git push origin :refs/tags/<tag_name>"'
+alias grcm='git rebase master'
 
 # starting macvim with nerdtree open
 alias nvim='mvim -c NERDTree -c "wincmd l"'
@@ -61,6 +62,10 @@ alias brails='bin/rails'
 alias brake='bin/rake'
 
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+function test_seed() {
+ bin/rake test TESTOPTS="--seed $1"
+ }
 
 
 alias start_es="launchctl load /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
@@ -111,6 +116,11 @@ create_tag() {
   git tag $TAG-$INDEX
   git push origin $TAG-$INDEX
 }
+
+single_file() { bundle exec ruby -I"lib:test" "$1" }
+single_test() { bundle exec ruby -I"lib:test" "$1" -n /"$2"/ }
+
+gcnb() { git checkout -b $1 `git branch -r | grep $1` }
 
 
 ########################################
