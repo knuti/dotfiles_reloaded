@@ -60,6 +60,8 @@ alias be='bundle exec'
 alias brails='bin/rails'
 alias brake='bin/rake'
 
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
 
 alias start_es="launchctl load /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
 alias stop_es="launchctl unload /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
