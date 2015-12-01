@@ -40,7 +40,13 @@ alias ll='ls -lah'
 alias start_pg="launchctl load -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
 alias stop_pg="launchctl unload -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
 
-alias pg='psql -h localhost -p 5432 -U `whoami` postgres'
+alias pg='pgcli -h localhost -p 5432 -U `whoami` postgres'
+
+alias start_mysql="launchctl load -w /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
+alias stop_mysql="launchctl unload -w /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
+
+alias start_memcached="launchctl load /usr/local/opt/memcached/homebrew.mxcl.memcached.plist"
+alias stop_memcached="launchctl unload /usr/local/opt/memcached/homebrew.mxcl.memcached.plist"
 
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
@@ -54,6 +60,11 @@ alias be='bundle exec'
 alias brails='bin/rails'
 alias brake='bin/rake'
 
+
+alias start_es="launchctl load /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
+alias stop_es="launchctl unload /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
+alias start_re="launchctl load -w /usr/local/Cellar/redis/3.0.1/homebrew.mxcl.redis.plist"
+alias stop_re="launchctl unload -w /usr/local/Cellar/redis/3.0.1/homebrew.mxcl.redis.plist"
 
 ########################################
 ### Bindings
