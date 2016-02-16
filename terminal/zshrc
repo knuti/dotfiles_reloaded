@@ -113,6 +113,9 @@ test_seed() { bin/rake test TESTOPTS="--seed $1" }
 ### PATH
 ########################################
 
+# Foo gets exuberant ctags loaded properly
+export PATH=/usr/local/bin:$PATH
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 source ~/.zlogin
