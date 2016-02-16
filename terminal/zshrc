@@ -53,10 +53,6 @@ alias brake='bin/rake'
 
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-function test_seed() {
- bin/rake test TESTOPTS="--seed $1"
- }
-
 
 
 ########################################
@@ -109,6 +105,8 @@ single_test() { bundle exec ruby -I"lib:test" "$1" -n /"$2"/ }
 gcnb() { git checkout -b $1 `git branch -r | grep $1` }
 
 service(){ ruby ~/scripts/start_stop.rb $1 $2 }
+
+test_seed() { bin/rake test TESTOPTS="--seed $1" }
 
 
 ########################################
