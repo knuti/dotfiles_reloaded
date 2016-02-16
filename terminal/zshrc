@@ -36,17 +36,7 @@ export MYSQL_PS1="\u@\h [\d]> "
 ########################################
 
 alias ll='ls -lah'
-
-alias start_pg="launchctl load -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
-alias stop_pg="launchctl unload -w /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist"
-
 alias pg='pgcli -h localhost -p 5432 -U `whoami` postgres'
-
-alias start_mysql="launchctl load -w /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
-alias stop_mysql="launchctl unload -w /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
-
-alias start_memcached="launchctl load /usr/local/opt/memcached/homebrew.mxcl.memcached.plist"
-alias stop_memcached="launchctl unload /usr/local/opt/memcached/homebrew.mxcl.memcached.plist"
 
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
@@ -68,10 +58,6 @@ function test_seed() {
  }
 
 
-alias start_es="launchctl load /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
-alias stop_es="launchctl unload /usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist"
-alias start_re="launchctl load -w /usr/local/Cellar/redis/3.0.1/homebrew.mxcl.redis.plist"
-alias stop_re="launchctl unload -w /usr/local/Cellar/redis/3.0.1/homebrew.mxcl.redis.plist"
 
 ########################################
 ### Bindings
@@ -121,6 +107,8 @@ single_file() { bundle exec ruby -I"lib:test" "$1" }
 single_test() { bundle exec ruby -I"lib:test" "$1" -n /"$2"/ }
 
 gcnb() { git checkout -b $1 `git branch -r | grep $1` }
+
+service(){ ruby ~/scripts/start_stop.rb $1 $2 }
 
 
 ########################################
