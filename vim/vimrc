@@ -47,7 +47,7 @@ set wildmenu
 set wildmode=list:longest
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc
+set wildignore+=*/coverage/*,*.o,*~,*.pyc,*.swp,*.swo,*.swp,*.zip,*.gz
 if has("win16") || has("win32")
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
@@ -147,6 +147,12 @@ set noswapfile
 " Easy open files using CtrlP
 map <leader>o :CtrlP<CR>
 map <leader>b :CtrlPBuffer<CR>
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|coverage|tmp)$'
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/]\.(git|hg|svn|coverage|tmp)$',
+"   \ 'file': '\v\.(exe|so|dll)$',
+"   \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
