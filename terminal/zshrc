@@ -50,6 +50,8 @@ alias nvim='mvim -c NERDTree -c "wincmd l"'
 alias be='bundle exec'
 alias brails='bin/rails'
 alias brake='bin/rake'
+alias rc='bin/rails c'
+alias rs='bin/rails s'
 
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
