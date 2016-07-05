@@ -132,7 +132,7 @@ au BufNewFile,BufRead *.j setf objj
 
 highlight Pmenu ctermbg=5 guibg=#004e9c
 
-set guifont=Monaco:h12
+set guifont=Monaco:h13
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
