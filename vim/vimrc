@@ -207,6 +207,11 @@ map <leader>tm :tabmove
 map <leader>tn :tabnext<CR>
 map <leader>tp :tabprevious<CR>
 
+" Disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
