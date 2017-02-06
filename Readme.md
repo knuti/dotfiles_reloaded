@@ -48,4 +48,4 @@ made in vimrc file needs a restart of vim to take effect.
 Plugins are managed through pathogen. In vimrc you will find a call to it,
 loading all plugins inside this folder. To be loaded, plugins will need to be
 placed as git submodules: `git submodule add <link_to_repo:most_often_git>`.
-To be up to date use `git submodule update`.
+To be up to date use `git submodule update --init --recursive`.
