@@ -4,7 +4,7 @@ SCRIPTS = {
   mysql: "-w /usr/local/opt/mysql/homebrew.mxcl.mysql.plist",
   memcached: "/usr/local/opt/memcached/homebrew.mxcl.memcached.plist",
   es: "/usr/local/Cellar/elasticsearch/1.5.2/homebrew.mxcl.elasticsearch.plist",
-  re: "-w /usr/local/Cellar/redis/3.0.1/homebrew.mxcl.redis.plist"
+  re: "-w /usr/local/Cellar/redis/3.2.8/homebrew.mxcl.redis.plist"
 }
 
 ACTIONS = {
