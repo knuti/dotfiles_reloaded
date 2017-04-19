@@ -1,5 +1,17 @@
 ## Reorganize Settings And Files
 
+### general requirements
+
+* brew
+* wget
+* git
+* the_silver_searcher
+* macvim
+* ctags
+* rvm
+
+-----------------
+
 ### fonts/
 
 *  FjordOne-Regular.otf

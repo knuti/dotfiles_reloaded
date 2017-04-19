@@ -20,6 +20,9 @@ HIST_STAMPS="dd.mm.yyyy"
 # plugins can be found in ~/.oh-my-zsh/plugins/*
 plugins=(git ruby rails vi-mode ssh-agent) #tmux tmuxinator
 
+# allow ssh-agent forwarding support
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
 ###############################################################################
 # User configuration
 ###############################################################################
@@ -55,6 +58,10 @@ alias rs='bin/rails s'
 
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
+
+# for tmux usage
+alias tma='tmux attach -d -t'
+alias tmn='tmux new -s $(basename $(pwd))'
 
 
 ########################################

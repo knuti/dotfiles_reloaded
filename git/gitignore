@@ -12,9 +12,11 @@ config/secrets.yml
 db/*.sqlite3
 .env
 
-# coverage
+# coverage and test thingies
 coverage/
 test/reports/
+.cassettes/
+.byebug_history
 
 # useful tidbits
 .DS_Store
@@ -23,3 +25,15 @@ doc/app
 TODO.*
 info.*
 tags
+foo*
+
+# RVM and rbenv
+.rvmrc
+.rbenv-version
+.ruby-*
+
+#jetbrains shit
+.idea/
+config/initializers/rubymine_passenger_debug.rb
+vendor/bundle
+atlassian-ide-plugin.xml
