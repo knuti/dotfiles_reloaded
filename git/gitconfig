@@ -23,12 +23,14 @@
   up = "!git remote update -p: git merge --ff-only @{u}"
   rob = 'push origin --delete'
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+  stash-all = stash save --include-untracked
 [pack]
   threads = 0
 [apply]
   whitespace = nowarn
 [push]
   default = tracking
+  followTags = true
 [giggle]
   main-window-maximized = true
   main-window-geometry = 0x0+0+0
@@ -37,6 +39,12 @@
   main-window-view = HistoryView
 [pull]
   ff = only
+[merge]
+  ff = only
+  conflictstyle = diff3
+
+[status]
+  showUntrackedFiles = all
 [branch]
   autosetuprebase = always
 [pull]
