@@ -32,8 +32,6 @@ foo*
 .rbenv-version
 .ruby-*
 
-#jetbrains shit
-.idea/
-config/initializers/rubymine_passenger_debug.rb
-vendor/bundle
-atlassian-ide-plugin.xml
+
+.ruby-version
+.ruby-gemset
