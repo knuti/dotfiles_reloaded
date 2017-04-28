@@ -6,9 +6,16 @@
 * wget
 * git
 * the_silver_searcher
-* macvim
+* vim
 * ctags
 * rvm
+
+-----------------
+
+### thanks to
+
+* https://trevordmiller.com/projects/nova
+For defining a great color scheme
 
 -----------------
 
@@ -48,7 +55,7 @@ Currently in use: japanesque
 
 * colors/
   * jellybeans.vim
-* plugins/
+* bundle/ _(includes vim related submodules, loaded through pathogen())_
 * vimrc _(main vim configuration file)_
 
 In `$HOME` directory, use `ln -s /path/to/project/vim/ .vim` and
@@ -58,6 +65,6 @@ For example search for "jellybeans" and replace it with "railscast". Any change
 made in vimrc file needs a restart of vim to take effect.
 
 Plugins are managed through pathogen. In vimrc you will find a call to it,
-loading all plugins inside this folder. To be loaded, plugins will need to be
-placed as git submodules: `git submodule add <link_to_repo:most_often_git>`.
+loading all plugins inside the *bundle* folder. To be loaded, plugins will need to be
+placed as git submodules: `git submodule add <link_to_repo:most_often_git> <path_to_dotfiles>/vim/bundle/<repo_name>`.
 To be up to date use `git submodule update --init --recursive`.
