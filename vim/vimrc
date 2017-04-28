@@ -123,7 +123,7 @@ syntax on
 syntax enable
 
 " colorscheme onedark
-colorscheme jellybeans
+" colorscheme jellybeans
 
 set background=dark
 
@@ -428,3 +428,5 @@ function! Smart_TabComplete()
     return "\<C-X>\<C-O>"                         " plugin matching
   endif
 endfunction
+
+colorscheme nova
