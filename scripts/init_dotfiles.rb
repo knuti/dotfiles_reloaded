@@ -27,7 +27,7 @@ end
 puts "start brewing"
 puts "-----------------------"
 
-system "brew install wget git the_silver_searcher ctags yarn redis tmux htop node pgcli readline macvim"
+system "brew install wget git the_silver_searcher ctags yarn redis tmux htop node postgresql pgcli readline vim"
 puts "-----------------------"
 
 puts "installing oh-my-zsh"
@@ -45,8 +45,23 @@ system "ln -s #{vim_dir} ~/.vim"
 system "ln -s #{script_dir} ~/scripts"
 puts "-----------------------"
 
+puts "installing rvm"
+system "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+system "\curl -sSL https://get.rvm.io | bash -s stable"
+puts "-----------------------"
 
+puts "installing ruby 2.4"
+system "rvm install 2.4"
 puts "-----------------------"
-puts "-----------------------"
+
+puts "preparing use of tmuxinator"
+system "rvm use 2.4@tmuxinator --create"
+system "gem install tmuxinator --no-ri --no-rdoc"
+
+Dir.mkdir("~/.tmuxinator") unless Dir.exists?("~/.tmuxinator")
+
+# some more linking
+
+
 puts "-----------------------"
 puts "-----------------------"
