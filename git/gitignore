@@ -30,8 +30,3 @@ foo*
 # RVM and rbenv
 .rvmrc
 .rbenv-version
-.ruby-*
-
-
-.ruby-version
-.ruby-gemset
