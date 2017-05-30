@@ -35,6 +35,10 @@ set nocompatible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Always display the status bar
+set laststatus=2
+
 " Set 7 lines scrolloff - when moving vertically using j/k
 set so=7
 
@@ -348,6 +352,9 @@ nnoremap <leader>pry obinding.pry<esc>
 
 " place logger
 nnoremap <leader>log oRails.logger.debug("#{}")<esc>
+
+" open vimrc
+nnoremap <leader>ev :e ~/.vimrc<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
