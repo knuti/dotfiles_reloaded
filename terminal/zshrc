@@ -21,7 +21,7 @@ HIST_STAMPS="dd.mm.yyyy"
 plugins=(git ruby rails vi-mode ssh-agent) #tmux tmuxinator
 
 # allow ssh-agent forwarding support
-zstyle :omz:plugins:ssh-agent agent-forwarding on
+# zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 ###############################################################################
 # User configuration
