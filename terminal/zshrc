@@ -114,6 +114,10 @@ service(){ ruby ~/scripts/start_stop.rb $1 $2 }
 
 test_seed() { bin/rake test TESTOPTS="--seed $1" }
 
+function cls {
+  osascript -e 'tell application "System Events" to keystroke "k" using command down'
+}
+
 
 ########################################
 ### PATH
