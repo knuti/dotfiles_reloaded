@@ -46,9 +46,6 @@ alias grco='git rebase origin/$(current_branch)'
 alias delete_tag='echo "git push origin :refs/tags/<tag_name>"'
 alias grcm='git rebase master'
 
-# starting macvim with nerdtree open
-alias nvim='mvim -c NERDTree -c "wincmd l"'
-
 # aliasing rails
 alias be='bundle exec'
 alias brails='bin/rails'
