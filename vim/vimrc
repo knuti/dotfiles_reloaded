@@ -39,7 +39,6 @@ set nocompatible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Always display the status bar
-set laststatus=2
 
 " Set 7 lines scrolloff - when moving vertically using j/k
 set so=7
