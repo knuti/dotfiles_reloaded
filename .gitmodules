@@ -82,9 +82,6 @@
 [submodule "vim/bundle/yats.vim"]
 	path = vim/bundle/yats.vim
 	url = https://github.com/HerringtonDarkholme/yats.vim.git
-[submodule "vim/bundle/vim-simple-complete"]
-	path = vim/bundle/vim-simple-complete
-	url = https://github.com/maxboisvert/vim-simple-complete.git
 [submodule "vim/bundle/vim-syntastic"]
 	path = vim/bundle/vim-syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
