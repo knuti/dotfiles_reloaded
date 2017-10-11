@@ -86,15 +86,13 @@
   history-view-vpane-position = 550
   file-view-vpane-position = 118
   main-window-view = HistoryView
-[pull]
-  ff = only
 [merge]
   ff = only
   conflictstyle = diff3
-
 [status]
   showUntrackedFiles = all
 [branch]
   autosetuprebase = always
 [pull]
   rebase = true
+  ff = only
