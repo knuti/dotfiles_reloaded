@@ -27,6 +27,8 @@ command W w !sudo tee % > /dev/null
 
 " Show the line numbers on a files side
 set number
+set relativenumber
+map <leader>non :set number!<cr>:set relativenumber!<cr>
 
 " necessary for mappings to work
 set nocompatible
