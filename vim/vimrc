@@ -369,6 +369,9 @@ nnoremap <leader>log oRails.logger.debug("#{}")<esc>
 " open vimrc
 nnoremap <leader>ev :e ~/.vimrc<CR>
 
+" use zfap -> fold a paragraph
+nnoremap <leader>z zfap
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
