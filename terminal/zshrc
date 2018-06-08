@@ -38,8 +38,8 @@ export MYSQL_PS1="\u@\h [\d]> "
 ### Aliases
 ########################################
 
-alias ll='ls -lah'
 alias pg='pgcli -h localhost -p 5432 -U `whoami` postgres'
+alias ll='ls -lAh'
 
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
