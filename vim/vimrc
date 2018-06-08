@@ -334,6 +334,9 @@ map! <F1> <Esc>
 " Open the file tree
 map <F2> :NERDTreeToggle<CR>
 
+" Enable NERDTree to display hidden files
+let NERDTreeShowHidden=1
+
 " load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
