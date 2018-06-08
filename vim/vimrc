@@ -306,16 +306,6 @@ execute pathogen#infect()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntax Checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_ruby_checkers=['mri', 'rubocop']
-let g:syntastic_haml_checkers=['haml', 'haml_lint']
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
