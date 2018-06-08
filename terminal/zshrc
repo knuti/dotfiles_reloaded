@@ -56,7 +56,6 @@ alias rs='bin/rails s'
 
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-
 # for tmux usage
 alias tma='tmux attach -d -t'
 alias tmn='tmux new -s $(basename $(pwd))'
@@ -83,28 +82,6 @@ bindkey '^E' end-of-line
 ########################################
 ### Methods
 ########################################
-
-# TODO: modify
-create_tag() {
-  if [ ${PWD##*/} = "autohaus24" ]; then
-    APP="ah24"
-  else
-    APP=${PWD##*/}
-  fi
-
-  INDEX=1
-  TAG=$APP-$(date +%Y%m%d)
-
-  git fetch --tags
-
-  while git rev-parse $TAG-$INDEX >/dev/null 2>&1; do
-    INDEX=$[$INDEX +1]
-  done
-
-  echo $TAG-$INDEX | tr -d '\n' | pbcopy
-  git tag $TAG-$INDEX
-  git push origin $TAG-$INDEX
-}
 
 single_file() { bundle exec ruby -I"lib:test" "$1" }
 single_test() { bundle exec ruby -I"lib:test" "$1" -n /"$2"/ }
