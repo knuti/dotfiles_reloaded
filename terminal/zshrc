@@ -45,6 +45,7 @@ alias ll='ls -lAh'
 alias grco='git rebase origin/$(current_branch)'
 alias delete_tag='echo "git push origin :refs/tags/<tag_name>"'
 alias grcm='git rebase master'
+alias grcd='git rebase develop'
 
 # aliasing rails
 alias be='bundle exec'
