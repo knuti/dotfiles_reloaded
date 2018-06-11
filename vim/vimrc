@@ -163,8 +163,10 @@ set nobackup
 set nowb
 set noswapfile
 
+" Enable fzf
+set rtp+=/usr/local/opt/fzf
 " Easy open files using FZF
-" map <leader>o :CtrlP<CR>
+map <leader>o :FZF<CR>
 " map <leader>b :CtrlPBuffer<CR>
 
 
@@ -303,6 +305,7 @@ Plug 'trevordmiller/nova-vim'
 Plug 'w0ng/vim-hybrid'
 
 Plug 'sheerun/vim-polyglot'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
