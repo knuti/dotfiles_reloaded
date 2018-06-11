@@ -296,6 +296,29 @@ map <leader>p :cp<cr>
 " => Plugin management
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'geoffharcourt/one-dark.vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'w0ng/vim-hybrid'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'rking/ag.vim'
+Plug 'craigemery/vim-autotag'
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
+
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+
+
+call plug#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
