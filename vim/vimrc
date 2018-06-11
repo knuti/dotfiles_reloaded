@@ -320,6 +320,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
+Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
 
 call plug#end()
 
