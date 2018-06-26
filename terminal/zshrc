@@ -18,7 +18,7 @@ ZSH_THEME="agnoster"
 HIST_STAMPS="dd.mm.yyyy"
 
 # plugins can be found in ~/.oh-my-zsh/plugins/*
-plugins=(git ruby rails vi-mode ssh-agent) #tmux tmuxinator
+plugins=(git ruby rails vi-mode ssh-agent tmuxinator) #tmux
 
 # allow ssh-agent forwarding support
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
@@ -38,8 +38,8 @@ export MYSQL_PS1="\u@\h [\d]> "
 ### Aliases
 ########################################
 
-alias pg='pgcli -h localhost -p 5432 -U `whoami` postgres'
 alias ll='ls -lAh'
+alias pg='pgcli -h localhost -p 5432 -U postgres postgres'
 
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
@@ -49,8 +49,8 @@ alias grcd='git rebase develop'
 
 # aliasing rails
 alias be='bundle exec'
-alias brails='bin/rails'
-alias brake='bin/rake'
+alias brails='DISABLE_SPRING=true bin/rails'
+alias brake='DISABLE_SPRING=true bin/rake'
 alias rc='bin/rails c'
 alias rs='bin/rails s'
 

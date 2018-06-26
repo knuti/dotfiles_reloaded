@@ -49,7 +49,7 @@ set ruler
 " Turn on the WiLd menu (bottom of editor)
 set wildmenu
 " Enable tab completion in Wild menu (try ':e app/<Tab>')
-set wildmode=list:longest
+" set wildmode=list:longest
 
 " Ignore compiled files
 set wildignore+=*/coverage/*,*.o,*~,*.pyc,*.swp,*.swo,*.swp,*.zip,*.gz
@@ -381,6 +381,13 @@ nnoremap <leader>ev :e ~/.vimrc<CR>
 
 " use zfap -> fold a paragraph
 nnoremap <leader>z zfap
+
+" call formatter for Elixir
+nmap <leader>mf :MixFormat<CR>
+
+" resizing options
+nmap <leader>r :resize
+nmap <leader>vr :vertical resize
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
