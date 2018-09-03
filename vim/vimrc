@@ -257,13 +257,14 @@ Plug 'mxw/vim-jsx'
 Plug 'prettier/vim-prettier'
 
 " On the fly syntax checking
-Plug 'w0rp/ale', { 'for': ['ruby', 'elixir', 'javascript', 'html', 'haml', 'cpp', 'java', 'cmake', 'cucumber', 'coffee', 'less', 'scss', 'css', 'sass', 'markdown', 'make', 'sql', 'dockerfile', 'typescript', 'vim', 'vue', 'gitcommit', 'xml', 'graphql', 'puppet', 'yaml'] }
+Plug 'w0rp/ale'
 
 Plug 'tpope/vim-endwise'      " put an end to things
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
+Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
 
@@ -302,7 +303,10 @@ let g:jsx_ext_required = 0
 " ale
 let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_lint_on_enter = 0
 
+" asyncrun
+autocmd BufWritePost *.js AsyncRun -post=checktime ~/node_modules/.bin/eslint --fix %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
