@@ -266,6 +266,11 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
 Plug 'skywind3000/asyncrun.vim'
 
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
+
 call plug#end()
 
 " === Additional Plugin configuration ===
@@ -308,6 +313,13 @@ let g:ale_lint_on_enter = 0
 " asyncrun
 autocmd BufWritePost *.js AsyncRun -post=checktime ~/node_modules/.bin/eslint --fix %
 
+" YouCompleteMe
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -336,13 +348,14 @@ augroup mkd
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-      \ "\<lt>C-n>" :
-      \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-      \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-      \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
+" Used for auto completion, once pressing TAB or CTRL-C
+" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+" inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+"       \ "\<lt>C-n>" :
+"       \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+"       \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+"       \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+" imap <C-@> <C-Space>
 
 " open vimrc
 nnoremap <leader>ev :e ~/.vimrc<CR>
