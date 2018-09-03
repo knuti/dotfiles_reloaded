@@ -40,16 +40,14 @@ set nocompatible
 
 " Always display the status bar
 
-" Set 7 lines scrolloff - when moving vertically using j/k
-set so=7
+" Set scrolloff - when moving vertically using j/k, number of lines left to top/bottom
+set so=5
 
 " Display status bar with current cursor position
 set ruler
 
 " Turn on the WiLd menu (bottom of editor)
 set wildmenu
-" Enable tab completion in Wild menu (try ':e app/<Tab>')
-" set wildmode=list:longest
 
 " Ignore compiled files
 set wildignore+=*/coverage/*,*.o,*~,*.pyc,*.swp,*.swo,*.swp,*.zip,*.gz
@@ -91,12 +89,7 @@ set lazyredraw
 
 " For regular expressions turn magic on
 set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
+set re=1
 
 " No annoying sound (errobell/eb) on errors
 set noerrorbells
@@ -105,53 +98,6 @@ set novisualbell
 " Clearing error notifications
 set t_vb=
 set tm=500
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Enable syntax highlighting
-syntax on
-syntax enable
-
-" colorscheme onedark
-" colorscheme jellybeans
-
-set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set t_Co=256
-  set guitablabel=%M\ %t
-  colorscheme onedark
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-au BufNewFile,BufRead *.j setf objj
-
-highlight Pmenu ctermbg=5 guibg=#004e9c
-
-set guifont=Monaco:h13
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -162,12 +108,6 @@ set guifont=Monaco:h13
 set nobackup
 set nowb
 set noswapfile
-
-" Enable fzf
-set rtp+=/usr/local/opt/fzf
-" Easy open files using FZF
-map <leader>o :FZF<CR>
-" map <leader>b :CtrlPBuffer<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,21 +185,22 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
-" Remove trailing white space on save
-function TrimWhiteSpace()
-  " ye olde one
-  " %s/\s*$//
-  " ''
-  " the new
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+autocmd FileWritePre,FileAppendPre,FilterWritePre,BufWritePre * if &ft!~?'markdown'|:call <SID>StripTrailingWhitespaces()|endif
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+function ChangeBackgroundColor()
+  if &background == "light"
+    set background=dark
+  elseif &background == "dark"
+    set background=light
+  endif
 :endfunction
-" Version for every file, on every write
-autocmd FileWritePre,FileAppendPre,FilterWritePre,BufWritePre * :call TrimWhiteSpace()
-" Version for specified files
-"autocmd BufWrite *.py :call TrimWhiteSpace()
-"autocmd BufWrite *.coffee :call TrimWhiteSpace()
+nnoremap <leader>cbc :call ChangeBackgroundColor()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -300,29 +241,67 @@ map <leader>p :cp<cr>
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'geoffharcourt/one-dark.vim'
-Plug 'trevordmiller/nova-vim'
-Plug 'w0ng/vim-hybrid'
+Plug 'morhetz/gruvbox'        " colorscheme
 
-Plug 'sheerun/vim-polyglot'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'   " syntax highlighting
+Plug '/usr/local/opt/fzf'     " Fuzzy file finder
+Plug 'junegunn/fzf.vim'       " plug fzf to vim
 
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'rking/ag.vim'
-Plug 'craigemery/vim-autotag'
+Plug 'tpope/vim-surround'     " change surroundings: cs[{
+Plug 'tpope/vim-commentary'   " easy comment out stuff (gc[c])
+Plug 'tpope/vim-fugitive'     " git wrapper
+Plug 'rking/ag.vim'           " Used as replacement for grep, requires the_silver_searcher
+Plug 'craigemery/vim-autotag' " Should generate tag list...
+Plug 'dgraham/vim-eslint'     " required for JSX files
+Plug 'mxw/vim-jsx'
+Plug 'prettier/vim-prettier'
 
+" On the fly syntax checking
+Plug 'w0rp/ale', { 'for': ['ruby', 'elixir', 'javascript', 'html', 'haml', 'cpp', 'java', 'cmake', 'cucumber', 'coffee', 'less', 'scss', 'css', 'sass', 'markdown', 'make', 'sql', 'dockerfile', 'typescript', 'vim', 'vue', 'gitcommit', 'xml', 'graphql', 'puppet', 'yaml'] }
+
+Plug 'tpope/vim-endwise'      " put an end to things
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-Plug 'tpope/vim-endwise', { 'for': 'ruby' }
-
 Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
 
 call plug#end()
+
+" === Additional Plugin configuration ===
+
+" Polyglot
+let g:jsx_ext_required = 1
+
+" NERDTree
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+map <F2> :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+" Enable NERDTree to display hidden files
+let NERDTreeShowHidden=1
+
+" FZF
+set rtp+=/usr/local/opt/fzf
+map <leader>o :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+" vim-jsx
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0
+
+" ale
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -340,12 +319,6 @@ map <leader>c <C-w>c
 
 " Open help menu
 map! <F1> <Esc>
-
-" Open the file tree
-map <F2> :NERDTreeToggle<CR>
-
-" Enable NERDTree to display hidden files
-let NERDTreeShowHidden=1
 
 " load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
@@ -367,17 +340,9 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
       \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
-" puts the caller
-nnoremap <leader>wtf oputs "#" * 90<c-m>puts caller<c-m>puts "#" * 90<esc>
-
-" places pry
-nnoremap <leader>pry obinding.pry<esc>
-
-" place logger
-nnoremap <leader>log oRails.logger.debug("#{}")<esc>
-
 " open vimrc
 nnoremap <leader>ev :e ~/.vimrc<CR>
+nnoremap <leader>vs :so ~/.vimrc<CR>
 
 " use zfap -> fold a paragraph
 nnoremap <leader>z zfap
@@ -386,8 +351,13 @@ nnoremap <leader>z zfap
 nmap <leader>mf :MixFormat<CR>
 
 " resizing options
-nmap <leader>r :resize
+nmap <leader>re :resize
 nmap <leader>vr :vertical resize
+
+" rebuilding tag list
+noremap <leader>rt :!ctags -f tags --extra=+f --fields=+l --exclude=tmp --exclude=log --exclude=node_modules --exclude=vendor -R *<CR><CR>
+" show tag list
+noremap <F4> <Esc>:TlistToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,14 +389,6 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
 endfunction
 
 " Don't close window, when deleting a buffer
@@ -469,5 +431,27 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-" weird foo, but nova needs to be set as the last option
-colorscheme nova
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax highlighting
+syntax on
+syntax enable
+
+set background=dark
+
+colorscheme gruvbox
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+au BufNewFile,BufRead *.j setf objj
+
+highlight Pmenu ctermbg=5 guibg=#004e9c
+
+set guifont=Monaco:h13
