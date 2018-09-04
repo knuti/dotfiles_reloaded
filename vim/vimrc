@@ -196,8 +196,10 @@ endfun
 function ChangeBackgroundColor()
   if &background == "light"
     set background=dark
+    colorscheme hybrid
   elseif &background == "dark"
     set background=light
+    colorscheme gruvbox
   endif
 :endfunction
 nnoremap <leader>cbc :call ChangeBackgroundColor()<CR>
@@ -242,6 +244,7 @@ map <leader>p :cp<cr>
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'        " colorscheme
+Plug 'w0ng/vim-hybrid'
 
 Plug 'sheerun/vim-polyglot'   " syntax highlighting
 Plug '/usr/local/opt/fzf'     " Fuzzy file finder
@@ -270,6 +273,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -318,6 +323,14 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='hybrid'
+set noshowmode " remove additional staus line
+
+" hybrid
+let g:hybrid_custom_term_colors = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -459,7 +472,8 @@ syntax enable
 
 set background=dark
 
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme hybrid
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
