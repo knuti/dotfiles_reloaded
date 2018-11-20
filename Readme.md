@@ -9,6 +9,8 @@
 * vim
 * ctags
 * rvm
+* fzf
+* tmux
 
 -----------------
 
@@ -26,7 +28,7 @@ For defining a great color scheme
 *  Open_Sans.zip
 
 Include through Fontbook.app on Mac OS. After that, open up iterm2 > Preferences
-\> Profile > Change Font. Select font of choice (Meslo LG, 11pt) and enjoy.
+\> Profile > Change Font. Select font of choice (Meslo LG, 13pt) and enjoy.
 
 -----------------
 
@@ -48,6 +50,7 @@ In iterm2 app, open Preferences > Colors > and select Import from the Dropdown.
 In the same Dropdown, select the colorscheme to be imported. Inside the schemes
 folder are a lot of themes to choose from. The folder itself is a submodule.
 Currently in use: japanesque
+Already provided: Tango Dark
 
 -----------------
 
