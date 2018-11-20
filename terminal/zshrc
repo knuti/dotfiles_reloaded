@@ -121,4 +121,3 @@ source $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 
 . $HOME/.asdf/completions/asdf.bash
 
-source ~/.zlogin
