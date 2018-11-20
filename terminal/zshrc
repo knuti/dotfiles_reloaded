@@ -117,7 +117,5 @@ export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
 source $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
-. $HOME/.asdf/asdf.sh
 
-. $HOME/.asdf/completions/asdf.bash
 
