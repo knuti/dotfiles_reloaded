@@ -145,7 +145,7 @@ map <leader>k <C-w>k
 map <leader>l <C-w>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+map <leader>bc :Bclose<cr>
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
@@ -172,19 +172,6 @@ noremap <Right> <Nop>
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
 autocmd FileWritePre,FileAppendPre,FilterWritePre,BufWritePre * if &ft!~?'markdown'|:call <SID>StripTrailingWhitespaces()|endif
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -199,7 +186,6 @@ function ChangeBackgroundColor()
     colorscheme hybrid
   elseif &background == "dark"
     set background=light
-    colorscheme gruvbox
   endif
 :endfunction
 nnoremap <leader>cbc :call ChangeBackgroundColor()<CR>
@@ -210,31 +196,12 @@ nnoremap <leader>cbc :call ChangeBackgroundColor()<CR>
 "    requires ag.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" When you press gv you Ag after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag<Space>
 let g:ag_prg="ag --nogroup --column"
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -362,13 +329,13 @@ augroup mkd
 augroup END
 
 " Used for auto completion, once pressing TAB or CTRL-C
-" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-" inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-"       \ "\<lt>C-n>" :
-"       \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-"       \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-"       \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-" imap <C-@> <C-Space>
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+      \ "\<lt>C-n>" :
+      \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+      \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+      \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 " open vimrc
 nnoremap <leader>ev :e ~/.vimrc<CR>
@@ -376,9 +343,6 @@ nnoremap <leader>vs :so ~/.vimrc<CR>
 
 " use zfap -> fold a paragraph
 nnoremap <leader>z zfap
-
-" call formatter for Elixir
-nmap <leader>mf :MixFormat<CR>
 
 " resizing options
 nmap <leader>re :resize
@@ -472,7 +436,6 @@ syntax enable
 
 set background=dark
 
-" colorscheme gruvbox
 colorscheme hybrid
 
 " Set utf8 as standard encoding and en_US as the standard language
