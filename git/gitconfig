@@ -73,6 +73,9 @@
   rob = 'push origin --delete'
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
   stash-all = stash save --include-untracked
+  rc = 'rebase --continue'
+  grcm = 'git rebase master'
+  grcd = 'git rebase develop'
 [pack]
   threads = 0
 [apply]
