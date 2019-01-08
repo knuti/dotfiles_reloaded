@@ -18,7 +18,7 @@ ZSH_THEME="agnoster"
 HIST_STAMPS="dd.mm.yyyy"
 
 # plugins can be found in ~/.oh-my-zsh/plugins/*
-plugins=(git ruby rails vi-mode ssh-agent tmuxinator) #tmux
+plugins=(git vi-mode ssh-agent tmuxinator) #tmux ruby rails
 
 # allow ssh-agent forwarding support
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
@@ -44,8 +44,6 @@ alias pg='pgcli -h localhost -p 5432 -U postgres postgres'
 # Additional Git Alias
 alias grco='git rebase origin/$(current_branch)'
 alias delete_tag='echo "git push origin :refs/tags/<tag_name>"'
-alias grcm='git rebase master'
-alias grcd='git rebase develop'
 
 # aliasing rails
 alias be='bundle exec'
@@ -53,8 +51,6 @@ alias brails='DISABLE_SPRING=true bin/rails'
 alias brake='DISABLE_SPRING=true bin/rake'
 alias rc='bin/rails c'
 alias rs='bin/rails s'
-
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # for tmux usage
 alias tma='tmux attach -d -t'
@@ -80,20 +76,6 @@ bindkey '^E' end-of-line
 
 
 ########################################
-### Methods
-########################################
-
-single_file() { bundle exec ruby -I"lib:test" "$1" }
-single_test() { bundle exec ruby -I"lib:test" "$1" -n /"$2"/ }
-
-gcnb() { git checkout -b $1 `git branch -r | grep $1` }
-
-service(){ ruby ~/scripts/start_stop.rb $1 $2 }
-
-test_seed() { bin/rake test TESTOPTS="--seed $1" }
-
-
-########################################
 ### work related configuration
 ########################################
 
@@ -112,8 +94,6 @@ fi
 export PATH=/usr/local/bin:$PATH
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-source $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 
 PATH=$PATH:/usr/local/Cellar/python/3.7.1/bin
 
