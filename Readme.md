@@ -76,3 +76,9 @@ loading all plugins listed
 
  `git submodule add <link_to_repo:most_often_git> <path_to_dotfiles>/vim/bundle/<repo_name>`.
 To be up to date use `git submodule update --init --recursive`.
+
+make dock appear only after a long time hovering over:
+`defaults write com.apple.Dock autohide-delay -float XXX; killall Dock`
+where XXX is a number of seconds (5 is good)
+reenable default behaviour:
+` delete com.apple.Dock autohide-delay; killall Dock`
