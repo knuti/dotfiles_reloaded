@@ -52,6 +52,8 @@ folder are a lot of themes to choose from. The folder itself is a submodule.
 Currently in use: japanesque
 Already provided: Tango Dark
 
+New find: https://gist.github.com/kevin-smets/8568070
+
 -----------------
 
 ### vim/
@@ -60,6 +62,8 @@ Already provided: Tango Dark
   * jellybeans.vim
 * bundle/ _(includes vim related submodules, loaded through Plug())_
 * vimrc _(main vim configuration file)_
+
+great colorscheme: [Night Owl](https://github.com/Khaledgarbaya/night-owl-vim-theme)
 
 In `$HOME` directory, use `ln -s /path/to/project/vim/ .vim` and
 `ln -s /path/to/project/vim/vimrc .vimrc` to symlink the configuration folder
