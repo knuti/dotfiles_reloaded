@@ -88,8 +88,25 @@ fi
 
 
 ########################################
+### additional auto completion
+########################################
+
+if [ -f ~/.zsh/auto_completes ]; then
+  source ~/.zsh/auto_completes
+fi
+
+########################################
+### methods
+########################################
+
+service(){ ruby ~/scripts/start_stop.rb $1 $2 }
+
+
+########################################
 ### PATH
 ########################################
+
+export LC_ALL=en_US.UTF-8
 
 # Foo gets exuberant ctags loaded properly
 export PATH=/usr/local/bin:$PATH
