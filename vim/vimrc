@@ -183,7 +183,7 @@ endfun
 function ChangeBackgroundColor()
   if &background == "light"
     set background=dark
-    colorscheme night-owl
+    colorscheme hybrid
   elseif &background == "dark"
     set background=light
   endif
@@ -211,8 +211,7 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 call plug#begin('~/.vim/plugged')
 
 " Plug 'morhetz/gruvbox'        " colorscheme
-" Plug 'w0ng/vim-hybrid'
-Plug 'haishanh/night-owl.vim'
+Plug 'w0ng/vim-hybrid'
 
 Plug 'sheerun/vim-polyglot'   " syntax highlighting
 Plug '/usr/local/opt/fzf'     " Fuzzy file finder
