@@ -28,7 +28,6 @@ plugins=(git vi-mode ssh-agent tmuxinator) #tmux ruby rails
 # User configuration
 ###############################################################################
 
-export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export EDITOR="vim"
 source $ZSH/oh-my-zsh.sh
 
@@ -109,11 +108,10 @@ service(){ ruby ~/scripts/start_stop.rb $1 $2 }
 export LC_ALL=en_US.UTF-8
 
 # Foo gets exuberant ctags loaded properly
-export PATH=/usr/local/bin:$PATH
+export PATH="/usr/local/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/Cellar:/usr/bin:$PATH"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-PATH=$PATH:/usr/local/Cellar/python/3.7.1/bin
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
