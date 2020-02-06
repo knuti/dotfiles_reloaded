@@ -67,6 +67,11 @@ set hid
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
 " Ignore case when searching
 set ignorecase
 
@@ -139,12 +144,21 @@ map <leader>j <C-w>j
 map <leader>k <C-w>k
 map <leader>l <C-w>l
 
+" Close the current buffer
+map <leader>bc :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
 " Manage Buffer
 map <leader>bn :bnext<cr>
 map <leader>bp :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>t :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
 map <leader>tn :tabnext<CR>
 map <leader>tp :tabprevious<CR>
 
@@ -153,12 +167,6 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
-
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -172,17 +180,25 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
+function ChangeBackgroundColor()
+  if &background == "light"
+    set background=dark
+    colorscheme hybrid
+  elseif &background == "dark"
+    set background=light
+  endif
+:endfunction
+nnoremap <leader>cbc :call ChangeBackgroundColor()<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ag searching and cope displaying
 "    requires ag.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if (executable('ag'))
-  " Open Ag and put the cursor in the right position
-  map <leader>a :Ag<Space>
-  let g:ag_prg="ag --nogroup --column"
-endif
+" Open Ag and put the cursor in the right position
+map <leader>a :Ag<Space>
+let g:ag_prg="ag --nogroup --column"
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -194,49 +210,53 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 call plug#begin('~/.vim/plugged')
 
-" colorscheme
+" Plug 'morhetz/gruvbox'        " colorscheme
 Plug 'w0ng/vim-hybrid'
 
-" Plug 'sheerun/vim-polyglot'   " syntax highlighting
-
-" plug fzf to vim
-if (executable('fzf'))
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'sheerun/vim-polyglot'   " syntax highlighting
+Plug '/usr/local/opt/fzf'     " Fuzzy file finder
+Plug 'junegunn/fzf.vim'       " plug fzf to vim
 
 Plug 'tpope/vim-surround'     " change surroundings: cs[{
 Plug 'tpope/vim-commentary'   " easy comment out stuff (gc[c])
 Plug 'tpope/vim-fugitive'     " git wrapper
-Plug 'tpope/vim-endwise'      " put an end to things
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-
 Plug 'rking/ag.vim'           " Used as replacement for grep, requires the_silver_searcher
-" Plug 'dgraham/vim-eslint'     " required for JSX files
-" Plug 'mxw/vim-jsx'
-" Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-
-" On the fly syntax checking
-" Plug 'dense-analysis/ale'
-
+Plug 'craigemery/vim-autotag' " Should generate tag list...
+Plug 'tpope/vim-endwise'      " put an end to things
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-" Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
-" Plug 'skywind3000/asyncrun.vim'
 
-" Plug 'leafgarland/typescript-vim'
-" Plug 'Quramy/tsuquyomi'
-" Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'ianks/vim-tsx', { 'for': 'typescript' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
+
+Plug 'vim-syntastic/syntastic'
+" On the fly syntax checking
+Plug 'w0rp/ale', { 'for': ['ruby', 'javascript', 'css', 'html', 'json'] }
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'branch': 'release/1.x',
+  \ 'for': ['javascript', 'typescript', 'css', 'html', 'json'] }
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" REQUIRED: Add a syntax file. YATS is the best
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" For async completion
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" For Denite features
+" Plug 'Shougo/denite.nvim'
 
 call plug#end()
 
 " === Additional Plugin configuration ===
-
-" Polyglot
-let g:jsx_ext_required = 1
 
 " NERDTree
 let g:NERDTreeIndicatorMapCustom = {
@@ -261,17 +281,25 @@ set rtp+=/usr/local/opt/fzf
 map <leader>o :FZF<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-" vim-jsx
-" Allow JSX in normal JS files
-" let g:jsx_ext_required = 0
-
 " ale
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
-let g:ale_lint_on_enter = 0
+" let g:ale_linter_aliases = {'jsx': 'css'}
+" let g:ale_lint_on_enter = 0
+let b:ale_linter = ['prettier']
 
-" asyncrun
-" autocmd BufWritePost *.js AsyncRun -post=checktime ~/node_modules/.bin/eslint --fix %
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver', 'tslint'],
+\   'vue': ['eslint']
+\}
+
+let g:ale_fixers = {
+\    'javascript': ['eslint'],
+\    'typescript': ['prettier'],
+\    'vue': ['eslint'],
+\    'scss': ['prettier'],
+\    'html': ['prettier']
+\}
+let g:ale_fix_on_save = 1
 
 " YouCompleteMe
 if !exists("g:ycm_semantic_triggers")
@@ -286,6 +314,13 @@ set noshowmode " remove additional staus line
 
 " hybrid
 let g:hybrid_custom_term_colors = 1
+
+" prettier
+autocmd BufWritePre *.ts,*.js,*.scss :Prettier
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+
+" Enable deoplete at startup
+" let g:deoplete#enable_at_startup = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
