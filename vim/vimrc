@@ -6,9 +6,7 @@
 set history=1000
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
-" filetype on
+filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -80,7 +78,6 @@ set hlsearch
 set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -123,10 +120,6 @@ set tabstop=2
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-set bs=2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,13 +157,6 @@ inoremap <Right> <Nop>
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd FileWritePre,FileAppendPre,FilterWritePre,BufWritePre * if &ft!~?'markdown'|:call <SID>StripTrailingWhitespaces()|endif
-function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
