@@ -78,6 +78,8 @@ set hlsearch
 set incsearch
 
 " Don't redraw while executing macros (good performance config)
+" was on
+" set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -183,7 +185,7 @@ call plug#begin('~/.vim/plugged')
 " colorscheme
 Plug 'w0ng/vim-hybrid'
 
-" Plug 'sheerun/vim-polyglot'   " syntax highlighting
+Plug 'sheerun/vim-polyglot'   " syntax highlighting
 
 " plug fzf to vim
 if (executable('fzf'))
@@ -198,20 +200,20 @@ Plug 'tpope/vim-endwise'      " put an end to things
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 
 Plug 'rking/ag.vim'           " Used as replacement for grep, requires the_silver_searcher
-" Plug 'dgraham/vim-eslint'     " required for JSX files
-" Plug 'mxw/vim-jsx'
+Plug 'dgraham/vim-eslint'     " required for JSX files
+Plug 'mxw/vim-jsx'
 " Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 
 " On the fly syntax checking
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 " Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
 " Plug 'skywind3000/asyncrun.vim'
 
-" Plug 'leafgarland/typescript-vim'
-" Plug 'Quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 " Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
 Plug 'vim-airline/vim-airline'
@@ -260,10 +262,10 @@ let g:ale_lint_on_enter = 0
 " autocmd BufWritePost *.js AsyncRun -post=checktime ~/node_modules/.bin/eslint --fix %
 
 " YouCompleteMe
-if !exists("g:ycm_semantic_triggers")
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
+" if !exists("g:ycm_semantic_triggers")
+"   let g:ycm_semantic_triggers = {}
+" endif
+" let g:ycm_semantic_triggers['typescript'] = ['.']
 
 " airline
 let g:airline_powerline_fonts = 1
@@ -298,18 +300,18 @@ let g:EasyGrepMode = 2
 let g:EasyGrepRecursive = 1
 
 " Markdown
-augroup mkd
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-augroup END
+" augroup mkd
+"   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+" augroup END
 
 " Used for auto completion, once pressing TAB or CTRL-C
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-      \ "\<lt>C-n>" :
-      \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-      \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-      \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
+" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+" inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+"       \ "\<lt>C-n>" :
+"       \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+"       \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+"       \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+" imap <C-@> <C-Space>
 
 " open vimrc
 nnoremap <leader>ev :e ~/.vimrc<CR>
@@ -338,26 +340,26 @@ function! CmdLine(str)
     unmenu Foo
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+" function! VisualSelection(direction, extra_filter) range
+"     let l:saved_reg = @"
+"     execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+"     let l:pattern = escape(@", '\\/.*$^~[]')
+"     let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
+"     if a:direction == 'b'
+"         execute "normal ?" . l:pattern . "^M"
+"     elseif a:direction == 'gv'
+"         call CmdLine("Ag \"" . l:pattern . "\" " )
+"     elseif a:direction == 'replace'
+"         call CmdLine("%s" . '/'. l:pattern . '/')
+"     elseif a:direction == 'f'
+"         execute "normal /" . l:pattern . "^M"
+"     endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
+"     let @/ = l:pattern
+"     let @" = l:saved_reg
+" endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -381,23 +383,23 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 " Expan on pressing tab and gives suggestions
-function! Smart_TabComplete()
-  let line = getline('.')                         " curline
-  let substr = strpart(line, -1, col('.')+1)      " from start to cursor
-  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-  if (strlen(substr)==0)                          " nothing to match on empty string
-    return "\<tab>"
-  endif
-  let has_period = match(substr, '\.') != -1      " position of period, if any
-  let has_slash = match(substr, '\/') != -1       " position of slash, if any
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>"                         " existing text matching
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>"                         " file matching
-  else
-    return "\<C-X>\<C-O>"                         " plugin matching
-  endif
-endfunction
+" function! Smart_TabComplete()
+"   let line = getline('.')                         " curline
+"   let substr = strpart(line, -1, col('.')+1)      " from start to cursor
+"   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+"   if (strlen(substr)==0)                          " nothing to match on empty string
+"     return "\<tab>"
+"   endif
+"   let has_period = match(substr, '\.') != -1      " position of period, if any
+"   let has_slash = match(substr, '\/') != -1       " position of slash, if any
+"   if (!has_period && !has_slash)
+"     return "\<C-X>\<C-P>"                         " existing text matching
+"   elseif ( has_slash )
+"     return "\<C-X>\<C-F>"                         " file matching
+"   else
+"     return "\<C-X>\<C-O>"                         " plugin matching
+"   endif
+" endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -405,8 +407,8 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
-syntax on
-syntax enable
+"syntax on
+"syntax enable
 
 set background=dark
 
@@ -418,7 +420,7 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-au BufNewFile,BufRead *.j setf objj
+" au BufNewFile,BufRead *.j setf objj
 
 highlight Pmenu ctermbg=5 guibg=#004e9c
 
