@@ -1,65 +1,115 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Sets how many lines of history VIM has to remember
-set history=1000
-
-" Enable filetype plugins
-filetype plugin indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-"let mapleader = ","
 let mapleader = "\<Space>"
 
-" Fast saving
-nmap <leader>w :w!<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" >> Plugin management
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+call plug#begin()
+  " plug fzf to vim
+  if (executable('fzf'))
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
+  endif
+
+  Plug 'rking/ag.vim' " Used as replacement for grep, requires the_silver_searcher
+  " Plug 'sonph/onehalf', { 'rtp': 'vim' } " colorscheme
+  " colorscheme
+  " Plug 'flazz/vim-colorschemes'
+  Plug 'arcticicestudio/nord-vim'
+
+  " improved statusbar
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+
+  " file navigation tree
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  " enables showing of git status on files
+  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
+
+  " define type behaviour per project
+  Plug 'editorconfig/editorconfig-vim'
+
+  " On the fly syntax checking
+  Plug 'dense-analysis/ale'
+
+  Plug 'tpope/vim-commentary'   " easy comment out stuff (gc[c])
+  Plug 'tpope/vim-fugitive'     " git wrapper
+  Plug 'tpope/vim-endwise'      " put an end to things
+
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
+call plug#end()
+
+
+" FZF
+set rtp+=/usr/local/opt/fzf
+map <leader>o :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='nord'
+
+" prettier
+let g:prettier#quickfix_enabled = 0
+autocmd BufWrite,FileWritePre,BufWritePre *.js,*.jsx,*.ts,*.css,*.scss Prettier
+
+" NERDTree
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+nnoremap <leader>n :NERDTreeToggle<CR>
+" Enable NERDTree to display hidden files
+let NERDTreeShowHidden=1
+
+" ycm - disable the preview window
+set completeopt-=preview
+" g:ycm_add_preview_to_completeopt
+" let g:ycm_autoclose_preview_window_after_completion = 0
+" let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_auto_hover = 'GetDoc'
+" nmap <leader>D <plug>(noYCMHover)
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" >> General Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set history=1000          " Sets how many lines of history VIM has to remember
+filetype plugin indent on " Enable filetype plugins
+set autoread              " Set to auto read when a file is changed from the outside
+set so=5          " scrolloff -- how many lines to show above/underneath cursor
+" set ruler
 
 " Show the line numbers on a files side
 set number
 set relativenumber
 map <leader>non :set number!<cr>:set relativenumber!<cr>
 
+" fast save
+nmap <leader>w :w!<cr>
+
+" save with admin privileges
+command W w !sudo tee % > /dev/null
+
 " necessary for mappings to work
 set nocompatible
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Always display the status bar
-
-" Set scrolloff - when moving vertically using j/k, number of lines left to top/bottom
-set so=5
-
-" Display status bar with current cursor position
-set ruler
-
-" Turn on the WiLd menu (bottom of editor)
-set wildmenu
-
-" Ignore compiled files
-set wildignore+=*/coverage/*,*.o,*~,*.pyc,*.swp,*.swo,*.swp,*.zip,*.gz
-if has("win16") || has("win32")
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-    set wildignore+=.git\*,.hg\*,.svn\*
-endif
-
-" Height of the command bar
-set cmdheight=2
-
-" A buffer becomes hidden when it is abandoned
-set hid
+" fast edit and source vim configuration
+nnoremap <leader>ev :e ~/.vimrc<CR>
+nnoremap <leader>vs :so ~/.vimrc<CR>
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -74,16 +124,8 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
-set incsearch
-
-" Don't redraw while executing macros (good performance config)
-" was on
-" set lazyredraw
-
 " For regular expressions turn magic on
 set magic
-set re=1
 
 " No annoying sound (errobell/eb) on errors
 set noerrorbells
@@ -93,35 +135,13 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" toggle paste mode for external sources
+map <leader>pp :setlocal paste!<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easy close files
+map <leader>c <C-w>c
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
+nnoremap <leader>z zfap
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,15 +176,13 @@ inoremap <Right> <Nop>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
+" => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
 
 if (executable('ag'))
   " Open Ag and put the cursor in the right position
@@ -172,256 +190,14 @@ if (executable('ag'))
   let g:ag_prg="ag --nogroup --column"
 endif
 
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin management
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-call plug#begin('~/.vim/plugged')
-
-" colorscheme
-Plug 'w0ng/vim-hybrid'
-
-Plug 'sheerun/vim-polyglot'   " syntax highlighting
-
-" plug fzf to vim
-if (executable('fzf'))
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
-
-Plug 'tpope/vim-surround'     " change surroundings: cs[{
-Plug 'tpope/vim-commentary'   " easy comment out stuff (gc[c])
-Plug 'tpope/vim-fugitive'     " git wrapper
-Plug 'tpope/vim-endwise'      " put an end to things
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-
-Plug 'rking/ag.vim'           " Used as replacement for grep, requires the_silver_searcher
-Plug 'dgraham/vim-eslint'     " required for JSX files
-Plug 'mxw/vim-jsx'
-" Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-
-" On the fly syntax checking
-Plug 'dense-analysis/ale'
-
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-" Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
-" Plug 'skywind3000/asyncrun.vim'
-
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-" Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-call plug#end()
-
-" === Additional Plugin configuration ===
-
-" Polyglot
-let g:jsx_ext_required = 1
-
-" NERDTree
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-
-map <F2> :NERDTreeToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-" Enable NERDTree to display hidden files
-let NERDTreeShowHidden=1
-
-" FZF
-set rtp+=/usr/local/opt/fzf
-map <leader>o :FZF<CR>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" vim-jsx
-" Allow JSX in normal JS files
-" let g:jsx_ext_required = 0
-
-" ale
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
-let g:ale_lint_on_enter = 0
-
-" asyncrun
-" autocmd BufWritePost *.js AsyncRun -post=checktime ~/node_modules/.bin/eslint --fix %
-
-" YouCompleteMe
-" if !exists("g:ycm_semantic_triggers")
-"   let g:ycm_semantic_triggers = {}
-" endif
-" let g:ycm_semantic_triggers['typescript'] = ['.']
-
-" airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme='hybrid'
-set noshowmode " remove additional staus line
-
-" hybrid
-let g:hybrid_custom_term_colors = 1
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-" Easy close files
-map <leader>c <C-w>c
-
-" Open help menu
-map! <F1> <Esc>
-
-" load matchit (% to bounce from do to end, etc.)
-runtime! macros/matchit.vim
-
-" Tweak EasyGrep
-let g:EasyGrepMode = 2
-let g:EasyGrepRecursive = 1
-
-" Markdown
-" augroup mkd
-"   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-" augroup END
-
-" Used for auto completion, once pressing TAB or CTRL-C
-" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-" inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-"       \ "\<lt>C-n>" :
-"       \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-"       \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-"       \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-" imap <C-@> <C-Space>
-
-" open vimrc
-nnoremap <leader>ev :e ~/.vimrc<CR>
-nnoremap <leader>vs :so ~/.vimrc<CR>
-
-" use zfap -> fold a paragraph
-nnoremap <leader>z zfap
-
-" resizing options
-nmap <leader>re :resize
-nmap <leader>vr :vertical resize
-
-" rebuilding tag list
-noremap <leader>rt :!ctags -f tags --extra=+f --fields=+l --exclude=tmp --exclude=log --exclude=node_modules --exclude=vendor -R *<CR><CR>
-" show tag list
-noremap <F4> <Esc>:TlistToggle<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-" function! VisualSelection(direction, extra_filter) range
-"     let l:saved_reg = @"
-"     execute "normal! vgvy"
-
-"     let l:pattern = escape(@", '\\/.*$^~[]')
-"     let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-"     if a:direction == 'b'
-"         execute "normal ?" . l:pattern . "^M"
-"     elseif a:direction == 'gv'
-"         call CmdLine("Ag \"" . l:pattern . "\" " )
-"     elseif a:direction == 'replace'
-"         call CmdLine("%s" . '/'. l:pattern . '/')
-"     elseif a:direction == 'f'
-"         execute "normal /" . l:pattern . "^M"
-"     endif
-
-"     let @/ = l:pattern
-"     let @" = l:saved_reg
-" endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
-" Expan on pressing tab and gives suggestions
-" function! Smart_TabComplete()
-"   let line = getline('.')                         " curline
-"   let substr = strpart(line, -1, col('.')+1)      " from start to cursor
-"   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-"   if (strlen(substr)==0)                          " nothing to match on empty string
-"     return "\<tab>"
-"   endif
-"   let has_period = match(substr, '\.') != -1      " position of period, if any
-"   let has_slash = match(substr, '\/') != -1       " position of slash, if any
-"   if (!has_period && !has_slash)
-"     return "\<C-X>\<C-P>"                         " existing text matching
-"   elseif ( has_slash )
-"     return "\<C-X>\<C-F>"                         " file matching
-"   else
-"     return "\<C-X>\<C-O>"                         " plugin matching
-"   endif
-" endfunction
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable syntax highlighting
-"syntax on
-"syntax enable
-
-set background=dark
-
-colorscheme hybrid
-
-" Set utf8 as standard encoding and en_US as the standard language
+colorscheme nord
+set guifont=Monaco:h15
 set encoding=utf8
-
-" Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" au BufNewFile,BufRead *.j setf objj
+noremap <leader>rt :!ctags -f tags --extra=+f --fields=+l --exclude=tmp --exclude=log --exclude=node_modules --exclude=vendor --exclude=artefacts -R *<CR><CR>
 
-highlight Pmenu ctermbg=5 guibg=#004e9c
-
-set guifont=Monaco:h13
