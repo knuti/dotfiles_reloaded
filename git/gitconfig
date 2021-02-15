@@ -19,7 +19,7 @@
   interactive = auto
   grep = auto
 [color "status"]
-  header = black bold
+  header = normal
   branch = cyan
   nobranch = red
   unmerged = red
@@ -51,7 +51,7 @@
   prompt = red
   header = red bold
   error = red
-  help = black bold
+  help = bold
 [color "grep"]
   context = normal
   match = cyan
@@ -69,11 +69,10 @@
   cp = cherry-pick
   gm = 'git merge --no-ff'
   gf = 'git fetch -p'
-  up = "!git remote update -p: git merge --ff-only @{u}"
+  ; up = "!git remote update -p: git merge --ff-only @{u}"
   rob = 'push origin --delete'
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
   stash-all = stash save --include-untracked
-  rc = 'rebase --continue'
   grcm = 'git rebase master'
   grcd = 'git rebase develop'
 [pack]
@@ -99,3 +98,8 @@
 [pull]
   rebase = true
   ff = only
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
