@@ -27,8 +27,17 @@ doc/app
 TODO.*
 info.*
 tags
+tags.*
 foo*
+*foo
 
 # RVM and rbenv
 .rvmrc
 .rbenv-version
+
+# nvm
+.nvmrc
+
+*.bkp
+*.testing
+*database.sql
