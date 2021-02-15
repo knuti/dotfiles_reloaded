@@ -5,56 +5,47 @@ let mapleader = "\<Space>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin()
+  " colorschem
+  Plug 'sheerun/vim-wombat-scheme'
+
+  " status bar
+  Plug 'itchyny/lightline.vim'
+
+  " plug the_silver-searcher to vim
+  Plug 'rking/ag.vim'
+
   " plug fzf to vim
   if (executable('fzf'))
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
     Plug 'junegunn/fzf.vim'
   endif
 
-  Plug 'rking/ag.vim' " Used as replacement for grep, requires the_silver_searcher
-  " Plug 'sonph/onehalf', { 'rtp': 'vim' } " colorscheme
-  " colorscheme
-  " Plug 'flazz/vim-colorschemes'
-  Plug 'arcticicestudio/nord-vim'
-
-  " improved statusbar
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-
-  Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 
   " file navigation tree
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  " enables showing of git status on files
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 
-  " define type behaviour per project
-  Plug 'editorconfig/editorconfig-vim'
+  " 'editorconfig/editorconfig-vim'
 
-  " On the fly syntax checking
-  Plug 'dense-analysis/ale'
+  Plug 'tpope/vim-commentary' " easy comment out stuff (gc[c])
+  Plug 'tpope/vim-fugitive'   " git wrapper
+  Plug 'tpope/vim-endwise'    " put an end to things
 
-  Plug 'tpope/vim-commentary'   " easy comment out stuff (gc[c])
-  Plug 'tpope/vim-fugitive'     " git wrapper
-  Plug 'tpope/vim-endwise'      " put an end to things
-
-  Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang --omnisharp-completer' }
 call plug#end()
 
+" lightline
+set laststatus=2
+set noshowmode
+let g:lightline = { 'colorscheme': 'wombat' }
 
 " FZF
 set rtp+=/usr/local/opt/fzf
 map <leader>o :FZF<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-
-" airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme='nord'
-
-" prettier
-let g:prettier#quickfix_enabled = 0
-autocmd BufWrite,FileWritePre,BufWritePre *.js,*.jsx,*.ts,*.css,*.scss Prettier
+" " prettier
+" let g:prettier#quickfix_enabled = 0
+" autocmd BufWrite,FileWritePre,BufWritePre *.js,*.jsx,*.ts,*.css,*.scss Prettier
 
 " NERDTree
 let g:NERDTreeIndicatorMapCustom = {
@@ -73,13 +64,13 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " Enable NERDTree to display hidden files
 let NERDTreeShowHidden=1
 
-" ycm - disable the preview window
-set completeopt-=preview
-" g:ycm_add_preview_to_completeopt
-" let g:ycm_autoclose_preview_window_after_completion = 0
-" let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_auto_hover = 'GetDoc'
-" nmap <leader>D <plug>(noYCMHover)
+" " ycm - disable the preview window
+" set completeopt-=preview
+" " g:ycm_add_preview_to_completeopt
+" " let g:ycm_autoclose_preview_window_after_completion = 0
+" " let g:ycm_autoclose_preview_window_after_insertion = 0
+" let g:ycm_auto_hover = 'GetDoc'
+" " nmap <leader>D <plug>(noYCMHover)
 
 
 
@@ -89,6 +80,7 @@ let g:ycm_auto_hover = 'GetDoc'
 
 set history=1000          " Sets how many lines of history VIM has to remember
 filetype plugin indent on " Enable filetype plugins
+syntax enable
 set autoread              " Set to auto read when a file is changed from the outside
 set so=5          " scrolloff -- how many lines to show above/underneath cursor
 " set ruler
@@ -194,7 +186,7 @@ endif
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colorscheme nord
+colorscheme wombat
 set guifont=Monaco:h15
 set encoding=utf8
 set ffs=unix,dos,mac
